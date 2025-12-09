@@ -467,22 +467,3 @@ spec:
       port: 80
       targetPort: 8000
 ---
-# Simple CPU-based HPA example
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: mt-system-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: mt-system
-  minReplicas: 1          # keep at least one pod for P0 requests
-  maxReplicas: 10
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 70   # target 70% CPU usage
